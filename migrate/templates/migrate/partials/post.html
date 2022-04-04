@@ -1,0 +1,64 @@
+<div class="post post-list-item">
+    <div class="post-cover">
+        <a href="{% url 'posts:post' post.id %}">
+            <img src="{{ post.cover.url }}" alt="Temporário">
+        </a>
+    </div>
+
+    <div class="post-title-container">
+        <h2 class="post-title">
+            <a href="{% url 'posts:post' post.id %}">    
+                {{ post.title }}
+            </a>
+        </h2>
+    </div>
+    <div class="post-author">
+        <span class="post-author-item">
+            <i class="fas fa-user"></i>
+            {{ post.author.first_name }} {{ post.author.last_name}}
+        </span> 
+        <span class="post-author-item">
+            <i class="fas fa-calendar-alt"></i>
+            {{ post.created_at|date:"d/m/Y" }} às {{ post.created_at|date:"H:i" }}
+        </span>
+        <span class="post-author-item">
+            <a href="/posts/category/cafe-da-manha">
+                <i class="fas fa-later-group"></i>
+                <span>{{ post.category.name }}</span>
+            </a>
+        </span>
+    </div>
+    <div class="post-content">
+        <p> {{ post.description }} </p>
+    </div>
+
+    <div class="post-meta-container">
+        <div class="post-meta post-preparation">
+            <h3 class="post-meta-title"><i class="fas fa-stopwatch"></i> Tempo de Leitura</h3>
+            <div class="post-meta-text">
+                {{ post.preparation_time }} {{ post.preparation_time_unit }}
+            </div>
+        </div>
+        <div class="post-meta post-servings">
+            <h3 class="post-meta-title"><i class="fa fa-comments"></i> Temas</h3>
+            <div class="post-meta-text">
+                {{ post.servings }} {{ post.servings_unit }}
+            </div>
+        </div>
+    </div>
+
+    {% if is_detail_page is not True %}
+    <footer class="post-footer">
+        <a class="post-read-more button button-dark button-full-width" href="{% url 'posts:post' post.id%}">
+            <i class="fas fa-eye"></i>
+            <span>ver mais...</span>
+        </a>
+    </footer>
+    {% endif %}
+
+    {% if is_detail_page is True %}
+    <div class="preparation-steps">
+        {{ post.preparation_steps|linebreaksbr }}
+    </div>
+    {% endif %}
+</div>
