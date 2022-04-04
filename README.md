@@ -1,2 +1,2 @@
 # Website_Django
-Opinion article publishing website template
+Science article publishing website template, using legacy and Faker to get a periodic template/draft site.
