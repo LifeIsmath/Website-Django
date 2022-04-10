@@ -1,9 +1,11 @@
 <div class="post post-list-item">
-    <div class="post-cover">
-        <a href="{% url 'posts:post' post.id %}">
-            <img src="{{ post.cover.url }}" alt="Temporário">
-        </a>
-    </div>
+    {% if post.cover %}
+        <div class="post-cover">
+            <a href="{% url 'posts:post' post.id %}">
+                <img src="{{ post.cover.url }}" alt="Temporário">
+            </a>
+        </div>
+    {% endif %}
 
     <div class="post-title-container">
         <h2 class="post-title">
@@ -13,20 +15,33 @@
         </h2>
     </div>
     <div class="post-author">
-        <span class="post-author-item">
-            <i class="fas fa-user"></i>
-            {{ post.author.first_name }} {{ post.author.last_name}}
-        </span> 
+            <span class="post-author-item">
+                <i class="fas fa-user"></i>
+                {% if post.author is not None %} 
+                    {% if post.author.first_name %}
+                        {{ post.author.first_name }} {{ post.author.last_name}}
+                    {% else %}
+                        {{ post.author.username }}
+                    {% endif %}
+                {% else %}    
+                    Desconhecido
+                {% endif %}
+            </span>             
+
         <span class="post-author-item">
             <i class="fas fa-calendar-alt"></i>
             {{ post.created_at|date:"d/m/Y" }} às {{ post.created_at|date:"H:i" }}
         </span>
-        <span class="post-author-item">
-            <a href="/posts/category/cafe-da-manha">
-                <i class="fas fa-later-group"></i>
-                <span>{{ post.category.name }}</span>
-            </a>
-        </span>
+
+        {% if post.category is not None %}
+            <span class="post-author-item">
+                <a href="{% url 'posts:category' post.category.id %}">
+                    <i class="fas fa-later-group"></i>
+                    <span>{{ post.category.name }}</span>
+                </a>
+            </span>
+        {% endif %}
+
     </div>
     <div class="post-content">
         <p> {{ post.description }} </p>
@@ -40,7 +55,7 @@
             </div>
         </div>
         <div class="post-meta post-servings">
-            <h3 class="post-meta-title"><i class="fa fa-comments"></i> Temas</h3>
+            <h3 class="post-meta-title"><i class="fas fa-pizza-slice"></i> Porções</h3>
             <div class="post-meta-text">
                 {{ post.servings }} {{ post.servings_unit }}
             </div>
@@ -57,8 +72,13 @@
     {% endif %}
 
     {% if is_detail_page is True %}
-    <div class="preparation-steps">
-        {{ post.preparation_steps|linebreaksbr }}
-    </div>
+        <div class="preparation-steps">
+            {% if post.prepartion_steps_is_html is True %}
+                {{ post.preparation_steps|safe }
+            {% else %}
+                {{ post.preparation_steps|linebreaksbr }}
+            {% endif %}
+        </div>
     {% endif %}
+
 </div>

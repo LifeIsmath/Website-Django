@@ -1,5 +1,5 @@
 """
-WSGI config for projeto1 project.
+WSGI config for Projectproject.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

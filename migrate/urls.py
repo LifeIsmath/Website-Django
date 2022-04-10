@@ -9,6 +9,7 @@ app_name = 'posts'
 
 urlpatterns = [
     path('', views.home, name="home"),
+        path('post/category/<int:category_id>/', views.category, name="category"),
     path('post/<int:id>/', views.post, name="post"),
 
 ]

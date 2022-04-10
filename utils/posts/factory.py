@@ -17,9 +17,9 @@ def make_post():
         'title': fake.sentence(nb_words=6),
         'description': fake.sentence(nb_words=12),
         'preparation_time': fake.random_number(digits=2, fix_len=True),
-        'preparation_time_unit': 'minutos',
+        'preparation_time_unit': 'Minutos',
         'servings': fake.random_number(digits=2, fix_len=True),
-        'servings_unit': 'temas',
+        'servings_unit': 'Porção',
         'preparation_steps': fake.text(3000),
         'created_at': fake.date_time(),
         'author': {
@@ -30,7 +30,7 @@ def make_post():
             'name': fake.word()
         },
         'cover': {
-            'url': 'https://loremflickr.com/%s/%s/science' % rand_ratio(),
+            'url': 'https://loremflickr.com/%s/%s/food,cook' % rand_ratio(),
         }
     }
 

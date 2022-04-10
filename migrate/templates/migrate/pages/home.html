@@ -4,8 +4,12 @@
 
 {% block content %}
 <div class="main-content main-content-list container">
-    {% for post in posts %}
-        {% include 'migrate/partials/post.html' %}
-   {% endfor %}
+
+{% for post in posts %}
+    {% include 'migrate/partials/post.html' %}
+{% empty %}
+    <h1>No posts found here</h1>
+{%endfor%}
+
 </div>
 {% endblock content %} 
