@@ -8,21 +8,18 @@ from .models import Post
 def home(request):  
     posts = Post.objects.filter(is_published=True,
                                 ).order_by('-id')
-    
 #------------------------------------
     # posts = get_list_or_404(
     #         Post.objects.filter(
     #         is_published=True,    
     #     ).order_by('-id')
     # )
-#------------------------------------
-        
+#------------------------------------     
     return render(request, 'migrate/pages/home.html', context={
         'posts': posts,
     })
     
 def category(request, category_id):
-    
 #------ More method --------------------------------------  
     # posts = Post.objects.filter(
     #     category__id=category_id, is_published=True).order_by('-id') 
