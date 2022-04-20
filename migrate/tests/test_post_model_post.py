@@ -17,16 +17,16 @@ class PostModelTest(PostTestBase):
     
     def make_post_no_defaults(self):
             post = Post(
+                category = self.make_category(name='Test Default Category'),
+                author = self.make_author(username='newuser'),
                 title = 'Post Title',
                 description = 'Post Description',
-                slug = 'post-slug',
+                slug = 'post-slug-for-no-defaults',
                 preparation_time = 10,
                 preparation_time_unit = 'Minutos',
                 servings=5,
                 servings_unit = 'Pessoas',
                 preparation_steps = 'Post Preparation Steps',
-                category = self.make_category(name='Test Default Category'),
-                author = self.make_author(username='newuser'),
             )
             post.full_clean()
             post.save()
@@ -42,14 +42,15 @@ class PostModelTest(PostTestBase):
             setattr(self.post, field, 'A' * (max_length + 1))
             with self.assertRaises(ValidationError):
                 self.post.full_clean()
+                
 # ---- Test Preparation Post -----------------------------------------------
-    # def test_post_preparation_steps_is_html_is_false_by_default(self):
-    #         post = self.make_post_no_defaults()
-    #         self.assertFalse(
-    #             post.preparation_steps_is_html, 
-    #             msg='Post preparation_steps_is_html is not False',
+    def test_post_preparation_steps_is_html_is_false_by_default(self):
+            post = self.make_post_no_defaults()
+            self.assertFalse(
+                post.preparation_steps_is_html, 
+                msg='Post preparation_steps_is_html is not False',
                              
-    #         )
+            )
 # ---------------------------------------------------------------------------
 
     def test_post_is_published_is_false_by_default(self):

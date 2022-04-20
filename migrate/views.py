@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 from utils.posts.factory import make_post
 
@@ -51,4 +52,14 @@ def post(request, id):
     return render(request, 'migrate/pages/post-view.html', context={
         'post': post,
         'is_detail_page': True,
+    })
+    
+def search(request):
+    search_term = request.GET.get('q', '').strip()
+    
+    if not search_term:
+        raise Http404()
+    
+    return render(request, 'migrate/pages/search.html', {
+        'page_title': f'Search for "{search_term}" | ',
     })
