@@ -9,7 +9,7 @@ Faker==13.3.4
 iniconfig==1.1.1
 packaging==21.3
 parameterized==0.8.1
-Pillow==9.1.0
+Pillow==8.4.0
 pluggy==1.0.0
 py==1.11.0
 pyparsing==3.0.8
